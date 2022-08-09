@@ -13,7 +13,7 @@ from os import path
 def run_subjects(subjlist, input_bucket, do_wait=True):   
     response=[]
     for subj in subjlist:
-        response.append(run_task(client, command = ['./fmriprep-cusacklab.bash', input_bucket, subj, 'int_imaging_bids', 'int_imaging_derivs']))
+        response.append(run_task(client, command = ['./fmriprep-cusacklab.bash', input_bucket, subj, 'bids', 'deriv']))
     
     if do_wait:
         wait_for_completion(client, response)
@@ -22,12 +22,12 @@ def run_subjects(subjlist, input_bucket, do_wait=True):
     
 
 if __name__=='__main__':
-    input_bucket='movie-associations'
+    input_bucket='motion-robust-mri'
     session = boto3.session.Session()
     client = session.client('ecs', region_name='eu-west-1')
     response = register_task(client) 
     print(response)
     
-    subjlist =['sub-5','sub-7','sub-8','sub-9','sub-10','sub-11']
+    subjlist =['sub-001']
 
     response = run_subjects(subjlist, input_bucket=input_bucket)
