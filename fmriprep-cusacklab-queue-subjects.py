@@ -13,7 +13,8 @@ from os import path
 def run_subjects(subjlist, input_bucket, do_wait=True):   
     response=[]
     for subj in subjlist:
-        response.append(run_task(client, command = ['./fmriprep-cusacklab.bash', input_bucket, subj, 'bids', 'deriv']))
+        #  response.append(run_task(client, command = ['./fmriprep-cusacklab.bash', input_bucket, subj, 'bids', 'deriv'])) # May be using this incorrectly!!!
+        response.append(run_task(client, command = ['./fmriprep-cusacklab.bash', input_bucket, 'motion_pilot', 'bids', subj, 'bids', 'deriv']))
     
     if do_wait:
         wait_for_completion(client, response)
